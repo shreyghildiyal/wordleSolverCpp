@@ -2,6 +2,7 @@
 //
 
 #include "wordleSolver.h"
+#include "solver.h"
 
 using namespace std;
 
