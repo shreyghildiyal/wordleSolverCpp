@@ -5,17 +5,9 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+// #include <map>
 
-
-// using json = nlohmann::json;
-
-std::string streamToString(std::ifstream& in) {
-    std::stringstream sstr;
-    sstr << in.rdbuf();
-    return sstr.str();
-}
-
-void getWordsOfLength(int len, std::vector<std::string>* results) {
+void getDictionaryWordsOfLength(int len, std::map<std::string, int>* results) {
 
     std::string dictionaryFile = "/mnt/d/cppProjects/wordleSolver/data/EDMTDictionary.json";
 
@@ -33,9 +25,48 @@ void getWordsOfLength(int len, std::vector<std::string>* results) {
             if (wordObject.is_object()) {
                 // wordObject.
                 std::string word = wordObject["word"];
-                results->push_back(word);
+                std::transform(word.begin(), word.end(), word.begin(), [](unsigned char c){ return std::tolower(c); });
+                if (word.length() == len) {
+                    (*results)[word] = 0;
+                }
+                
             }
         }
     }
 }
 
+std::map<std::string, int> getFilteredWordsByFrequency(std::map<std::string, int> words, int minFrequency) {
+
+    std::string frequencyFile = "/mnt/d/cppProjects/wordleSolver/data/unigram_freq.csv";
+
+    std::ifstream ifs(frequencyFile);
+    std::string line;
+     std::map<std::string, int> result;
+    while (std::getline(ifs, line)) {
+        int delimPos = line.find(",");
+        std::string word = line.substr(0, delimPos);
+        std::transform(word.begin(), word.end(), word.begin(), [](unsigned char c){ return std::tolower(c); });
+        std::string countStr = line.substr(delimPos + 1, line.length());
+        int count = atoi(countStr.c_str());
+        // std::cout << word << " " << count << std::endl;
+        if (count >= minFrequency) {
+            
+            if (words.find(word) != words.end()) {
+                std::cout << word << " " << count << std::endl;
+                // words[word] = count;
+                result[word] = count;
+            }
+        }
+    }
+
+   
+
+    // for (std::map<std::string, int>::iterator i = words.begin(); i != words.end(); i++) {
+    //     if (i->second != 0) {
+    //         result[i->first] = i->second;
+    //     }
+        
+    // }
+
+    return result;
+}

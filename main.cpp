@@ -10,6 +10,6 @@ int main(int, char**) {
     std::cout << "Second Line" << std::endl;
     Solver solver;
     std::vector<Attempt> attempts;
-    attempts.push_back(Attempt());
+    attempts.push_back(Attempt("raise", "GBBBB"));
     solver.HelpSolve(attempts);
 }
