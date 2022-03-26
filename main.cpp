@@ -10,6 +10,18 @@ int main(int, char**) {
     std::cout << "Second Line" << std::endl;
     Solver solver;
     std::vector<Attempt> attempts;
-    attempts.push_back(Attempt("raise", "GBBBB"));
+    attempts.push_back(Attempt("raise", "BBBBB"));
+    attempts.push_back(Attempt("blunt", "BBBYB"));
+    attempts.push_back(Attempt("knock", "BYBBB"));
     solver.HelpSolve(attempts);
+    // std::string word = "rowdy";
+    // std::string attemptWord = "raise";
+    // std::string attemptRes = "GBBBB";
+    // bool res = solver.isMatch(word, Attempt(attemptWord, attemptRes));
+    // std::cout << word << " " << attemptWord << " " << attemptRes << " " <<  std::endl;
+    // if (res) {
+    //     std::cout << "true\n";
+    // } else {
+    //     std::cout << "false\n";
+    // }
 }

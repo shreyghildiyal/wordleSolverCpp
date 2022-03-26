@@ -52,7 +52,7 @@ std::map<std::string, int> getFilteredWordsByFrequency(std::map<std::string, int
         if (count >= minFrequency) {
             
             if (words.find(word) != words.end()) {
-                std::cout << word << " " << count << std::endl;
+                // std::cout << word << " " << count << std::endl;
                 // words[word] = count;
                 result[word] = count;
             }
